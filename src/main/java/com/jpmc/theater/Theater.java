@@ -6,18 +6,33 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.management.RuntimeErrorException;
+
 import org.json.JSONObject;
 
+/** A theater class for JPMorgan Chase's take home assignment. The theater class creates a theater
+ * that has a schedule composed of list of showings. The class facilitates movie ticket reservations. 
+   @author David Burdjanadze
+ * @version 1.0
+*/
 public class Theater {
     LocalDateProvider provider;
     private List<Showing> schedule;
 
+    /** Theater class constructor.
+     * 
+     * @param provider a singleton class instance to provide date
+    */
     public Theater(LocalDateProvider provider) {
         this.provider = provider;
         schedule = setupSchedule();
     }
 
-    public List<Showing> setupSchedule() {
+    /** Setting up some movies and showings to create a default schedule.
+     * 
+     * @return the list of showings of the schedule.
+    */
+    private List<Showing> setupSchedule() {
         Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, 1);
         Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), 11, 0);
         Movie theBatman = new Movie("The Batman", Duration.ofMinutes(95), 9, 0);
@@ -35,7 +50,22 @@ public class Theater {
         );
     }
 
+    /**
+     * Reserves a movie ticket(s) for a customer. The method will first check that the argument
+     * values provided are valid.
+     * 
+     * @param customer          the customer making the reservation
+     * @param sequence          the number with the specific showing of the movie given for a date
+     * @param howManyTickets    amount of tickets to buy
+     * @throws RuntimeException for non-positive ticket amount
+     * @throws RuntimeException for a null customer
+     * @return                  a reservation object for this reservation
+    */
     public Reservation reserve(Customer customer, int sequence, int howManyTickets) {
+        if(howManyTickets <= 0)
+            throw new RuntimeException("amount of tickets to buy cannot be a non-positive number");
+        if(customer == null)
+            throw new RuntimeException("trying to make a reservation for a null customer");   
         Showing showing;
         try {
             showing = schedule.get(sequence - 1);
@@ -46,6 +76,7 @@ public class Theater {
         return new Reservation(customer, showing, howManyTickets);
     }
 
+    /** Prints the schedule of the theater for today in a plain text. */
     public void printSchedule() {
         System.out.println(provider.currentDate());
         System.out.println("===================================================");
@@ -55,6 +86,7 @@ public class Theater {
         System.out.println("===================================================");
     }
 
+    /** Prints the schedule of the theater for today in a JSON format */
     public void printScheduleInJSON() { 
         JSONObject scheduleInJSON = new JSONObject();
         int showingNumber = 0;
@@ -66,6 +98,7 @@ public class Theater {
         System.out.println("===================================================");
     }
 
+    /** Prints the schedule of the theater in a readable format. */
     public String humanReadableFormat(Duration duration) {
         long hour = duration.toHours();
         long remainingMin = duration.toMinutes() - TimeUnit.HOURS.toMinutes(duration.toHours());
@@ -73,8 +106,12 @@ public class Theater {
         return String.format("(%s hour%s %s minute%s)", hour, handlePlural(hour), remainingMin, handlePlural(remainingMin));
     }
 
-    // (s) postfix should be added to handle plural correctly
-    private String handlePlural(long value) {
+    /** Adds a suffix to the handle plural value.
+     * 
+     * @param value amount of some unit of time
+     * @return      either an empty string or an "s" depending on plurality
+    */
+    private String handlePlural(int value) {
         if (value == 1) {
             return "";
         }
@@ -83,6 +120,10 @@ public class Theater {
         }
     }
 
+    /** Main function will instantiate a theater object and print its schedule.
+     * 
+     * @param args command line input arguments
+    */
     public static void main(String[] args) {
         Theater theater = new Theater(LocalDateProvider.singleton());
         theater.printSchedule();
