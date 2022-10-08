@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Theater {
-
     LocalDateProvider provider;
     private List<Showing> schedule;
 

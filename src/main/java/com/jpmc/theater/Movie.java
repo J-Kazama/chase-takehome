@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Movie {
     private static int MOVIE_CODE_SPECIAL = 1;
-
+    
     private String title;
     private String description;
     private Duration runningTime;
