@@ -11,7 +11,7 @@ public class Customer {
      * @param id customer id
      */
     public Customer(String name, String id) {
-        this.id = id; // NOTE - id is not used anywhere at the moment
+        this.id = id;
         this.name = name;
     }
 
@@ -30,6 +30,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "name: " + name;
+        return "name: " + name + ", " + "id: " + this.id;
     }
 }
