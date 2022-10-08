@@ -1,6 +1,7 @@
 package com.jpmc.theater;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Movie {
@@ -32,13 +33,18 @@ public class Movie {
     }
 
     public double calculateTicketPrice(Showing showing) {
-        return ticketPrice - getDiscount(showing.getSequenceOfTheDay());
+        return ticketPrice - getDiscount(showing.getSequenceOfTheDay(), showing.getStartTime());
     }
 
-    private double getDiscount(int showSequence) {
-        double specialDiscount = 0;
+    private double getDiscount(int showSequence, LocalDateTime showStartTime) {
+        double specialDiscount = 0; 
+        double midDayDiscount = 0;
         if (MOVIE_CODE_SPECIAL == specialCode) {
             specialDiscount = ticketPrice * 0.2;  // 20% discount for special movie
+        }
+        // time is between 11 am to 4 pm
+        if(showStartTime.getHour() >= 11 && showStartTime.getHour() <= 16) {
+            midDayDiscount = ticketPrice * 0.25; // 25% discount for movies starting between 11 am to 4 pm
         }
 
         double sequenceDiscount = 0;
@@ -46,13 +52,13 @@ public class Movie {
             sequenceDiscount = 3; // $3 discount for 1st show
         } else if (showSequence == 2) {
             sequenceDiscount = 2; // $2 discount for 2nd show
+        } else if (showSequence == 7) {
+            sequenceDiscount = 1; // $1 discount for 7th show
         }
-//        else {
-//            throw new IllegalArgumentException("failed exception");
-//        }
 
         // biggest discount wins
-        return specialDiscount > sequenceDiscount ? specialDiscount : sequenceDiscount;
+        double percentageDiscount = Math.max(specialDiscount, midDayDiscount);
+        return percentageDiscount > sequenceDiscount ? specialDiscount : sequenceDiscount;
     }
 
     @Override
