@@ -13,7 +13,7 @@ public class Customer {
     public Customer(String name, String id) {
         this.id = id; // NOTE - id is not used anywhere at the moment
         this.name = name;
-        }
+    }
 
     @Override
     public boolean equals(Object o) {
