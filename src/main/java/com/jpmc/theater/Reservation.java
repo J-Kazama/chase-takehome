@@ -10,6 +10,6 @@ public class Reservation {
     }
 
     public double totalFee() {
-        return showing.getMovieFee();
+        return showing.calculateFee();
     }
 }
