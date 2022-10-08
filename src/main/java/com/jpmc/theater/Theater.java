@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONObject;
+
 public class Theater {
     LocalDateProvider provider;
     private List<Showing> schedule;
@@ -50,6 +52,17 @@ public class Theater {
         schedule.forEach(s ->
                 System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
         );
+        System.out.println("===================================================");
+    }
+
+    public void printScheduleInJSON() { 
+        JSONObject scheduleInJSON = new JSONObject();
+        int showingNumber = 0;
+        schedule.forEach(s ->
+            scheduleInJSON.put(++showingNumber, s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
+        );
+        System.out.println("===================================================");
+        System.out.println(scheduleInJSON.toString());
         System.out.println("===================================================");
     }
 
