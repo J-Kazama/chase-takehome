@@ -16,6 +16,6 @@ public class LocalDateProvider {
     }
 
     public LocalDate currentDate() {
-            return LocalDate.now();
+        return LocalDate.now();
     }
 }
