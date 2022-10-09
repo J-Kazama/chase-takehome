@@ -27,3 +27,9 @@ This is a poorly written application, and we're expecting the candidate to great
   * Any movies showing on 7th, you'll get 1$ discount
   * The discount amount applied only one if met multiple rules; biggest amount one
 * We want to print the movie schedule with simple text & json format
+
+## Note
+* Further improvements of this implementation:
+  * Store customers in a relational database (makes most sense for this design) and use its id as a primary key, which should be checked upon instantiation.
+  * Theater should have a calendar associated with it such that it will print schedules of showings days ahead.
+  * Customers should be able to subscribe for a monthly fee such that they will be able to attend a showing weekly.
