@@ -3,6 +3,12 @@ package com.jpmc.theater;
 import java.time.Duration;
 import java.util.Objects;
 
+/** A movie class for JPMorgan Chase's take home assignment. The movie class will store the name
+ * duration, and ticket price of a movie prior to any discount application. Movies may be special or not
+ * incurring in different discount amounts.
+ * @author David Burdjanadze
+ * @version 1.0
+*/
 public class Movie {
     private static int MOVIE_CODE_SPECIAL = 1;
 

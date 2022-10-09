@@ -1,5 +1,10 @@
 package com.jpmc.theater;
 
+/** A reservation class for JPMorgan Chase's take home assignment. The reservation class will store
+ * reservation related information such as price for reservation, customer who made it, and showing details.
+ * @author David Burdjanadze
+ * @version 1.0
+*/
 public class Reservation {
     private Customer customer;
     private Showing showing;

@@ -2,6 +2,12 @@ package com.jpmc.theater;
 
 import java.time.LocalDateTime;
 
+/** A showing class for JPMorgan Chase's take home assignment. The showing class handles the streaming of 
+ * a movie at the theater. The showing stores information such the screening time, sequence of it within the day
+ * and calculates discount associated with the specific showing based on discount criteria.
+ * @author David Burdjanadze
+ * @version 1.0
+*/
 public class Showing {
     private Movie movie;
     private int sequenceOfTheDay;
@@ -76,6 +82,8 @@ public class Showing {
      * if the movie is a special one (per code), time of showing's start time, and if the movie
      * is of a sequence that has a discount associated with it. If multiple discounts may be applied
      * the largest one is applied. 
+     * 
+     * @return the discount to be applied
      */
     private double getDiscount() {
         double specialDiscount = 0; 

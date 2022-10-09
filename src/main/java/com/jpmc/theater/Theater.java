@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 /** A theater class for JPMorgan Chase's take home assignment. The theater class creates a theater
  * that has a schedule composed of list of showings. The class facilitates movie ticket reservations. 
-   @author David Burdjanadze
+ * @author David Burdjanadze
  * @version 1.0
 */
 public class Theater {
