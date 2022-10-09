@@ -15,12 +15,15 @@ public class Movie {
     /** Constructor for the movie class. A movie is composed of a title, length (running time), ticket price
      * and a code for whether it is a special movie or not (related to a special discount)
      * 
-     * @param title       title of the movie
-     * @param runningTime the length of the movie
-     * @param ticketPrice the price for a single ticket for this movie
-     * @param specialCode the code for this movie
+     * @param  title            title of the movie
+     * @param  runningTime      the length of the movie
+     * @param  ticketPrice      the price for a single ticket for this movie
+     * @param  specialCode      the code for this movie
+     * @throws RuntimeException if title or running time is missing, or ticket price is negative
      */
     public Movie(String title, Duration runningTime, double ticketPrice, int specialCode) {
+        if(title.equals("") || runningTime == null || ticketPrice < 0)
+            throw new RuntimeException("Must have a title, running time, and a valid ticket price");
         this.title = title;
         this.runningTime = runningTime;
         this.ticketPrice = ticketPrice;

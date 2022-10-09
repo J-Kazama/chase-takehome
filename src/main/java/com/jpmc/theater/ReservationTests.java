@@ -18,7 +18,7 @@ public class ReservationTests {
         Customer customer = new Customer("John Doe", "test-id");
         Showing showing = new Showing(
                 new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 10, 1),
-                1,
+                5,
                 LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 50))
         );
         Reservation reservation = new Reservation(customer, showing, 5);

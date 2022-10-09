@@ -21,9 +21,12 @@ public class Theater {
 
     /** Theater class constructor.
      * 
-     * @param provider a singleton class instance to provide date
+     * @param  provider         a singleton class instance to provide date
+     * @throws RuntimeException if object is constructed with a null provider
     */
     public Theater(LocalDateProvider provider) {
+        if(provider == null)
+            throw new RuntimeException("provider cannot be null");
         this.provider = provider;
         schedule = setupSchedule();
     }

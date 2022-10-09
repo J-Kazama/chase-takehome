@@ -15,6 +15,13 @@ public class TheaterTests {
         assertEquals("trying to make a reservation for a null customer", exception.getMessage());
     }
     
+    /** Testing theater creation with a null provider. */
+    @Test
+    void testConstructTheaterNullProvider() {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> new Theater(null));
+        assertEquals("provider cannot be null", exception.getMessage());
+    }
+
     /** Testing reservation for an invalid (non-positive) ticket amount raises an exception. */
     @Test
     void testReserveMovieInvalidTicketAmount() {

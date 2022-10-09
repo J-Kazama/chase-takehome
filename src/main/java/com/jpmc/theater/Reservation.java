@@ -7,9 +7,10 @@ public class Reservation {
 
     /** Constructor for Reservation class.
      * 
-     * @param customer    customer of the reservation
-     * @param showing     the showing of the reservation
-     * @param ticketCount the amount of tickets for the reservation
+     * @param  customer         customer of the reservation
+     * @param  showing          the showing of the reservation
+     * @param  ticketCount      the amount of tickets for the reservation
+     * @throws RuntimeException for an invalid ticket count
      */
     public Reservation(Customer customer, Showing showing, int ticketCount) {
         if(ticketCount <= 0)
