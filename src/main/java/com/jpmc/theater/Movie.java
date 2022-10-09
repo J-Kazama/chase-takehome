@@ -1,7 +1,6 @@
 package com.jpmc.theater;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Movie {
@@ -54,48 +53,12 @@ public class Movie {
         return ticketPrice;
     }
 
-    /** Calculates the price for a showing of this movie. The price of the showing would be the
-     * price of the ticket and substracting any discount associated with that specific showing.
+    /** Checks whether the movie is a special movie.
      * 
-     * @param showing the showing of this movie
-     * @return        the price of this showing
+     * @return true if the movie is a special movie, false otherwise
      */
-    public double calculateTicketPrice(Showing showing) {
-        return ticketPrice - getDiscount(showing.getSequenceOfTheDay(), showing.getStartTime());
-    }
-
-    /** Calculates the discount associated with a specific showing. Discount can be applied 
-     * if the movie is a special one (per code), time of showing's start time, and if the movie
-     * is of a sequence that has a discount associated with it. If multiple discounts may be applied
-     * the largest one is applied. 
-     * 
-     * @param showSequence  the number of showing of the current date in the theater
-     * @param showStartTime the time when the showing begins
-     * @return              the amount of the discount
-     */
-    private double getDiscount(int showSequence, LocalDateTime showStartTime) {
-        double specialDiscount = 0; 
-        double midDayDiscount = 0;
-        if (MOVIE_CODE_SPECIAL == specialCode) {
-            specialDiscount = ticketPrice * 0.2;  // 20% discount for special movie
-        }
-        // checking if time is between 11 am to 4 pm
-        if(showStartTime.getHour() >= 11 && showStartTime.getHour() <= 16) {
-            midDayDiscount = ticketPrice * 0.25; // 25% discount for movies starting between 11 am to 4 pm
-        }
-
-        double sequenceDiscount = 0;
-        if (showSequence == 1) {
-            sequenceDiscount = 3; // $3 discount for 1st show
-        } else if (showSequence == 2) {
-            sequenceDiscount = 2; // $2 discount for 2nd show
-        } else if (showSequence == 7) {
-            sequenceDiscount = 1; // $1 discount for 7th show
-        }
-
-        // biggest discount wins
-        double percentageDiscount = Math.max(specialDiscount, midDayDiscount);
-        return percentageDiscount > sequenceDiscount ? percentageDiscount : sequenceDiscount;
+    public boolean isSpecialMovie(){
+        return this.specialCode == MOVIE_CODE_SPECIAL;
     }
 
     /** Overriding equality method to check for the fields of the movie for movie equality
@@ -121,6 +84,6 @@ public class Movie {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, runningTime, ticketPrice, specialCode);
+        return Objects.hash(title, runningTime, ticketPrice, specialCode);
     }
 }

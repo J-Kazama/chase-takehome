@@ -69,6 +69,37 @@ public class Showing {
      * @return the price of this showing.
      */
     double calculateFee() {
-        return movie.calculateTicketPrice(this);
+        return this.getMovieFee() - this.getDiscount();
     }
+
+    /** Calculates the discount associated with a specific showing. Discount can be applied 
+     * if the movie is a special one (per code), time of showing's start time, and if the movie
+     * is of a sequence that has a discount associated with it. If multiple discounts may be applied
+     * the largest one is applied. 
+     */
+    private double getDiscount() {
+        double specialDiscount = 0; 
+        double midDayDiscount = 0;
+        if (this.movie.isSpecialMovie()) {
+            specialDiscount = this.getMovieFee() * 0.2;  // 20% discount for special movie
+        }
+        // checking if time is between 11 am to 4 pm
+        if(this.showStartTime.getHour() >= 11 && this.showStartTime.getHour() <= 16) {
+            midDayDiscount = this.getMovieFee() * 0.25; // 25% discount for movies starting between 11 am to 4 pm
+        }
+
+        double sequenceDiscount = 0;
+        if (this.sequenceOfTheDay == 1) {
+            sequenceDiscount = 3; // $3 discount for 1st show
+        } else if (this.sequenceOfTheDay == 2) {
+            sequenceDiscount = 2; // $2 discount for 2nd show
+        } else if (this.sequenceOfTheDay == 7) {
+            sequenceDiscount = 1; // $1 discount for 7th show
+        }
+
+        // biggest discount wins
+        double percentageDiscount = Math.max(specialDiscount, midDayDiscount);
+        return percentageDiscount > sequenceDiscount ? percentageDiscount : sequenceDiscount;
+    }
+
 }
