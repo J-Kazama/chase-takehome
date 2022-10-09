@@ -5,8 +5,9 @@ import java.time.LocalDate;
 public class LocalDateProvider {
     private static LocalDateProvider instance = null;
 
-    /**
-     * @return make sure to return singleton instance
+    /** Returns the instance of the singleton local date provider class.
+     * 
+     * @return instance of the local date provider
      */
     public static LocalDateProvider singleton() {
         if (instance == null) {
@@ -15,6 +16,10 @@ public class LocalDateProvider {
         return instance;
     }
 
+    /** Gets the current date.
+     * 
+     * @return current date
+     */
     public LocalDate currentDate() {
         return LocalDate.now();
     }
